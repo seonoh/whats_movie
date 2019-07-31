@@ -3,5 +3,5 @@ ext{
     supportLib = '28.0.0'
     retrofit_version = '2.6.0'
     rxAndroid_version = '2.0.2'
-
+    stetho_version = '1.5.0'
 }

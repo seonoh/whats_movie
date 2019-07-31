@@ -8,9 +8,10 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface Api {
-//    @Headers("CLIENT_ID:GoIb4q0WOvGEfJz3rlGc","CLIENT_SECRET:o4Gq7iiLwa")
 
     @GET("movie.json")
     fun getMovieInfo(@HeaderMap  map : Map<String,String>
-                     ,@Query("query") searchText : String ) : Single<Movie>
+                     ,@Query("query") searchText : String
+                     ,@Query("display") display : Int
+                    ): Single<Movie>
 }

@@ -7,6 +7,7 @@ import com.eamcoding.whatsmovie.config.CLIENT_ID
 import com.eamcoding.whatsmovie.config.CLIENT_SECRET
 import com.eamcoding.whatsmovie.movie.movieListModule
 import com.eamcoding.whatsmovie.network.Api
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.ihsanbal.logging.Level
 import okhttp3.OkHttpClient
 import org.koin.dsl.module.module
@@ -22,21 +23,27 @@ val apiModule : Module = module {
 
 
     single {
-        OkHttpClient.Builder().addInterceptor(
-            LoggingInterceptor.Builder()
-                .loggable(BuildConfig.DEBUG)
-                .setLevel(Level.BASIC)
-                .log(Platform.INFO)
-                .request("Request")
-                .response("Response")
-                .build()
-        ).build()
 
-        Retrofit.Builder()
-            .client(OkHttpClient.Builder().build())
+        val client = OkHttpClient.Builder()
+            client.addInterceptor(
+                LoggingInterceptor.Builder()
+                    .loggable(BuildConfig.DEBUG)
+                    .setLevel(Level.BASIC)
+                    .log(Platform.INFO)
+                    .request("OH_req")
+                    .response("OH_res")
+                    .build()
+            )
+            .addNetworkInterceptor(StethoInterceptor())
+            .build()
+        val okClient = client.build()
+
+
+       Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
+            .client(okClient)
             .build()
             .create(Api::class.java)
     }

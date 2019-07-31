@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.eamcoding.whatsmovie.R
+import com.eamcoding.whatsmovie.movie.MovieActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         go_movie.setOnClickListener {
-            val movieIntent = Intent(this,MovieActivity::class.java)
+            val movieIntent = Intent(this, MovieActivity::class.java)
             startActivity(movieIntent)
         }
 
